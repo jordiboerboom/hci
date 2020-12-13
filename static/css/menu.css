@@ -1,0 +1,45 @@
+
+body {
+	background-color: #daeaf2;
+	text-align: center;
+	margin: 2vh 5vw;
+}
+
+body #Beschrijving p {
+	background-color: #81c4f0;
+	border-radius: 1.5vw;
+	border: 4px solid black;
+	font-size: 3vmin;
+}
+
+body #Welkomsbericht h1 {
+	background-color: #81c4f0;
+	border-radius: 1.5vw;
+	border: 4px solid black;
+	font-size: 5vmin;
+	line-height: 7.5vh;
+	height: 15vh;
+}
+
+body #Nextbutton button {
+	position: fixed;
+	width: 20vw;
+	left: 75vw;
+	top:75vh;
+	height: 20vh;
+	border-radius: 1.5vw;
+	border: 4px solid black;
+	cursor: pointer;
+	background-color: #81c4f0;
+	
+}
+body #Nextbutton button img {
+	height: 5vmin;
+	width: 15vmin;
+}
+
+body #Nextbutton button p {
+	text-align: center;
+	font-size: 4vmin;
+}
+

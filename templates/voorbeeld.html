@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+	<!--SCRIPTS-->
+	<script>
+	function myFunction(popupID) {
+		let string = "myPopup" +  popupID
+		var popup = document.getElementById(string);
+		popup.classList.toggle("show");
+	}
+	</script>
+	<!-- HTML -->
+	<head>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/voorbeeld.css') }}">
+		<link rel="shortcut icon" href="{{ url_for('static', filename='icon/favicon.ico') }}">
+		<title>Voorbeeld</title>
+	</head>
+	<body>
+		<div id="image">
+			<img src="{{ url_for('static', filename='images/exampleArticle.jpg') }}" alt="News article">
+			{% for popUp in image.parametersList %}
+				<div class="popup" style="left:{{popUp.startWidth}}%; top:{{popUp.startHeight}}%; width:{{popUp.width}}%; height:{{popUp.height}}%;" onclick="myFunction({{loop.index|string}})">
+					{% set popupID = "myPopup" + loop.index|string %}
+					<span class="popuptext" id="{{ popupID }}">{{ popUp.message }}</span>
+				</div>
+			{% endfor %}
+		</div>
+		<div id="Nextbutton">
+			<form action="{{ url_for('test') }}" id="myForm">
+				<button type="submit" form="myForm">
+					<p>Volgende</p>
+					<img src="{{ url_for('static', filename='images/rightarrow.png') }}" alt="Next Button">
+				</button>
+			</form>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,93 @@
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script>
+		var fileLocations = [];
+		var testValues = [];
+		var testAnswers = [];
+		var Correct = 0;
+		var Wrong = 0;
+		var testProgress = 0;
+		var testLength = {{testSize}};
+		function returnRight() {
+			return Correct;
+		}
+		function returnWrong() {
+			return Wrong;
+		}
+		function calculateScore () {
+			for (var i = 0; i < testValues.length; i++) {
+				if (testValues[i] == testAnswers[i]) {
+					Correct += 1;
+				}
+				else {
+					Wrong += 1;
+				}
+			}
+		}
+		function loadTest () {
+			{% for i in test.fileLocations %}
+				fileLocations.push("{{i}}");
+			{% endfor %}
+			{% for i in test.fakeValues %}
+				testValues.push("{{i}}");
+			{% endfor %}
+		}
+		function answer(myAnswer) {
+			if (testProgress == testLength) {
+				calculateScore();
+				setupRequest();
+				$('#formButton').attr('form', 'myForm');
+			}
+			if (testProgress != testLength) {
+				testProgress += 1;
+				testAnswers.push(Number(myAnswer));
+				if (testProgress == testLength) {
+					nextButton();
+					removePreviousButton();
+				}
+				else {
+					document.getElementById("mainImage").src = fileLocations[testProgress];
+				}
+			}
+		}
+		function nextButton() {
+			document.getElementById("buttonText2").innerHTML = "Volgende";
+			document.getElementById("NextImage").src="{{ url_for('static', filename='images/rightarrow.png') }}";
+		}
+		function removePreviousButton() {
+			document.getElementById("Previousbutton").innerHTML = "";
+		}
+		function setupRequest() {
+			var myUrl = "{{ url_for('testresults', rightAnswers="rightNumber", wrongAnswers="wrongNumber") }}";
+			var newUrl1 = myUrl.replace("rightNumber", returnRight());
+			var newUrl2 = newUrl1.replace("wrongNumber", returnWrong());
+			var newUrl3 = newUrl2.replace("amp;", "");
+			console.log(newUrl3);
+			document.getElementById("myForm").action=newUrl3;
+		}
+		</script>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/test.css') }}">
+		<link rel="shortcut icon" href="{{ url_for('static', filename='icon/favicon.ico') }}">
+		<title>Test</title>
+	</head>
+	<body onload="loadTest()">
+		<div id="image">
+			<img src="{{ url_for('static', filename=test.urlForFileLocations[0]) }}" alt="News article" id="mainImage">
+		</div>
+		<div id="Previousbutton">
+			<button type="submit" onclick="answer(0)">
+				<p id="buttonText1">Nep</p>
+				<img src="{{ url_for('static', filename='images/wrongmark.png') }}" alt="Previous Button">
+			</button>
+		</div>
+		<div id="Nextbutton">
+			<form action="{{ url_for('testresults', rightAnswers='rightNumber', wrongAnswers='wrongNumber') }}" id="myForm" method='post'>
+				<button type="submit" onclick="answer(1)" form="None" id="formButton">
+					<p id="buttonText2">Echt</p>
+					<img src="{{ url_for('static', filename='images/checkmark.png') }}" alt="Next Button" id="NextImage">
+				</button>
+			</form>
+		</div>
+	</body>
+</html>

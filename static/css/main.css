@@ -1,0 +1,107 @@
+body {
+	background-color: #daeaf2;
+	text-align: center;
+	margin: 2vh 5vw;
+}
+
+div p {
+	font-size: 4vmin;
+}
+
+div {
+	background-color: #81c4f0;
+	border-radius: 1.5vw;
+	border: 0.25vw solid black;
+}
+
+div#exit {
+	width:40vw;
+	height:20vh;
+	bottom: 5vh;
+	right:30vw;
+	position:fixed;
+}
+
+div#exit button img {
+	height: 10vmin;
+	width: 15vmin;
+}
+
+div#exit button {
+	background-color: #81c4f000;
+	cursor: pointer;
+	height: 20vh;
+	width: 40vw;
+	border: 0px;
+}
+
+div#header {
+	position:fixed;
+	height:20vh;
+	width:40vw;
+	top:5vh;
+	right:30vw;
+}
+
+div#facebook {
+	position:fixed;
+	height:20vh;
+	width: 27vw;
+	top: 30vh;
+	right: 5vw;
+}
+
+div#facebook button img {
+	height: 8vmin;
+	width: 15vmin;
+}
+
+div#facebook button {
+	background-color: #81c4f000;
+	cursor: pointer;
+	height: 20vh;
+	width: 27vw;
+	border: 0px;
+}
+
+div#twitter {
+	position: fixed;
+	height: 20vh;
+	width: 27vw;
+	top: 30vh;
+	right: 36.25vw;
+}
+
+div#twitter button img {
+	height: 8vmin;
+	width: 15vmin;
+}
+
+div#twitter button {
+	background-color: #81c4f000;
+	cursor: pointer;
+	height: 20vh;
+	width: 27vw;
+	border: 0px;
+}
+
+div#websites {
+	position: fixed;
+	height: 20vh;
+	width: 27vw;
+	top: 30vh;
+	left: 5vw;
+}
+
+div#websites button img {
+	height: 8vmin;
+	width: 15vmin;
+}
+
+div#websites button {
+	background-color: #81c4f000;
+	cursor: pointer;
+	height: 20vh;
+	width: 27vw;
+	border: 0px;
+}

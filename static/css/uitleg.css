@@ -1,0 +1,50 @@
+body {
+	background-color: #daeaf2;
+	text-align: center;
+	font-size: 4vmin;
+}
+
+div#uitleg_explainpart {
+	position: relative;
+	background-color: #81c4f0;
+	border-radius: 1.5vw;
+	border: 0.25vw solid black;
+	font-size: 2.5vmin;
+	left: 4.25vw;
+	width: 90vw;
+	top: 5vh;
+}
+
+div#uitleg_testpart {
+	position:relative;
+	background-color: #81c4f0;
+	border-radius: 1.5vw;
+	border: 0.25vw solid black;
+	font-size: 2.5vmin;
+	width: 90vw;
+	left: 4.25vw;
+	top: 10vh;
+}
+
+div#Nextbutton button {
+	position: relative;
+	top:30vh;
+	left: 35vw;
+	width: 20vw;
+	right: 4.25vw;
+	height: 20vh;
+	border-radius: 1.5vw;
+	border: 0.25vw solid black;
+	cursor: pointer;
+	background-color: #81c4f0;
+}
+
+div#Nextbutton button img {
+	height: 5vmin;
+	width: 15vmin;
+}
+
+div#Nextbutton button p {
+	text-align: center;
+	font-size: 4vmin;
+}

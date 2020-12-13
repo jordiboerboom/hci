@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/uitleg.css') }}">
+		<link rel="shortcut icon" href="{{ url_for('static', filename='icon/favicon.ico') }}">
+		<title>Uitleg</title>
+	</head>
+	<body>
+		<div id="uitleg_explainpart">
+			{% if testType == 'facebook' %}
+				<p>Welkom bij "Deel 1: Facebook".
+			{% elif testType == 'twitter' %}
+				<p>Welkom bij "Deel 2: Twitter".
+			{% elif testType == 'websites' %}
+				<p>Welkom bij "Deel 3: Websites".
+			{% endif %}
+			<br />
+			Dit deel, net als de andere twee delen, bestaat uit een uitleggedeelte en een testgedeelte.
+			Het uitleggedeelte zal u helpen om verschillende kenmerken van nepnieuws berichten te kunnen herkennen.
+			In het uitleggedeelte zal u een voorbeeld te zien krijgen van een nepnieuws bericht die past bij dit platform.
+			Ieder kenmerk wordt weergegeven door middel van een rood vakje overheen.
+			Als u op dit rode vakje klikt (1 keer met linkermuisknop), dan verschijnt er een nieuw tekstvak met meer informatie over dat betreffende kenmerk.
+			Als u op hetzelfde rode vakje klikt met de linkermuisknop, dan verdwijnt het tekstvak en wordt het rode vakje nu grijs van kleur.
+			Zo kunt u zien dat u dat kenmerk heeft bekeken. Als u alle kenmerken heeft bekeken, dan verschijnt er rechtsonder op het scherm het vakje met "Volgende".
+			Als u daarop klikt met de linkermuisknop, dan gaat u door naar het testgedeelte.
+			</p>
+		</div>
+		<div id="uitleg_testpart">
+			<p>Het testgedeelte zal u toetsen op hoe goed u deze theorie kan toepassen.
+			Tijdens het testgedeelte krijgt u verschillende berichten te zien van dit betreffende platform.
+			Voor ieder bericht kunt u beoordelen of het nepnieuws is of echt nieuws door met de linkermuisknop te klikken op het vakje “echt” of het vakje “nep”.
+			U ziet dan dat dit vakje lichter van kleur wordt om aan te geven dat u daarop heeft geklikt.
+			Nadat u het testgedeelte heeft afgerond, krijgt u de resultaten te zien. U kunt dan zien hoe goed u scoort op het herkennen van nepnieuws geplaatst op dit platform.
+			Indien van toepassing kunt u uzelf verbeteren door nog een keer de test te doorlopen. Als u goed genoeg heeft gescoord, kunt u weer terug naar het hoofdmenu.
+		</p>
+		</div>
+		<div id="Nextbutton">
+			<form action="{{ url_for('voorbeeld') }}" id="myForm">
+				<button type="submit" form="myForm">
+					<p>Volgende</p>
+					<img src="{{ url_for('static', filename='images/rightarrow.png') }}" alt="Next Button">
+				</button>
+			</form>
+		</div>
+	</body>
+</html>

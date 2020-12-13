@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/testresults.css') }}">
+		<link rel="shortcut icon" href="{{ url_for('static', filename='icon/favicon.ico') }}">
+		<title>TestResultaat</title>
+	</head>
+	<body>
+		<div id="results">
+			<p> Goede antwoorden: {{ right }}</p>
+			<br>
+			<p> Foute antwoorden: {{ wrong }}</p>
+			<br>
+		</div>
+		<div id="Nextbutton">
+			<form action="{{ url_for('mainMenu') }}" id="MainLink">
+				<button type="submit" form="MainLink">
+					<p>Terug naar menu</p>
+					<img src="{{ url_for('static', filename='images/rightarrow.png') }}" alt="MainMenu">
+				</button>
+			</form>
+		</div>
+		<div id="Previousbutton">
+			<form action="{{ url_for('test') }}" id="ReviewLink">
+				<button type="submit" form="ReviewLink">
+					<p>Bekijk tests</p>
+					<img src="{{ url_for('static', filename='images/leftarrow.png') }}" alt="Next Button">
+				</button>
+			</form>
+		</div>
+	</body>
+</html>

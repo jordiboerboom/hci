@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+	<link rel="shortcut icon" href="{{ url_for('static', filename='icon/favicon.ico') }}">
+	<head>
+		<title>Menu</title>
+	</head>
+	<body>
+		<div id="header">
+			<p> Maak Keuze </p>
+		</div>
+		<div id="facebook">
+			<form action="{{ url_for('uitleg', testType='facebook') }}" id="facebookform" method="POST">
+				<button type="submit" form="facebookform">
+					<img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook Tests">
+					<p>Facebook</p>
+				</button>
+			</form>
+		</div>
+		<div id="twitter">
+			<form action="{{ url_for('uitleg', testType='twitter') }}" id="twitterform" method="POST">
+				<button type="submit" form="twitterform">
+					<img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter Tests">
+					<p>Twitter</p>
+				</button>
+			</form>
+		</div>
+		<div id="websites">
+			<form action="{{ url_for('uitleg', testType='websites') }}" id="websitesform" method="POST">
+				<button type="submit" form="websitesform">
+					<img src="{{ url_for('static', filename='images/webicon.png') }}" alt="Website Tests">
+					<p>Websites</p>
+				</button>
+			</form>
+		</div>
+		<div id="exit">
+			<form action="{{ url_for('goodbye') }}" id="exitform">
+				<button type="submit" form="exitform">
+					<img src="{{ url_for('static', filename='images/exit.png') }}" alt="Exit Button">
+					<p>Verlaat Programma</p>
+				</button>
+			</form>
+		</div>
+	</body>
+</html>

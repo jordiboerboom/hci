@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+	<link rel="shortcut icon" href="{{ url_for('static', filename='icon/favicon.ico') }}">
+	<!-- HEAD -->
+	<head>
+		<title>Fake News Training</title>
+	</head>
+	
+	<!-- BODY -->
+	<body>
+		<div id="Welkomsbericht">
+			<h1>Welkom bij het fake news training programma</h1>
+		</div>
+		<div id="Beschrijving">
+			<p>Dit programma is ontwikkeld om u te helpen met het herkennen van nepnieuws berichten op verschillende sociale media platformen en op websites door middel van kleine toetsen met daarvoor een passende uitleg.<br />
+			Het programma werkt als volgt: Het programma bestaat uit 3 delen, genaamd “Deel 1: Facebook”, “Deel 2: Twitter”, en “Deel 3: Websites”. Deze delen staan weergegeven in het hoofdmenu, het scherm dat hierna volgt.
+			Ieder deel behandelt een selectie aan nepnieuws berichten die zijn geplaatst op dat betreffende platform.<br />
+			Voor de rest van het programma wordt u er doorheen geleid.
+			Wij raden u aan om bij “Deel 1: Facebook” te beginnen, maar u kunt ook beginnen bij een ander deel als u dat wilt. U kunt door het gehele programma de tijd nemen die u nodig hebt.
+			Wij hopen dat u dit een leerzame ervaring zult vinden en dat u beter nepnieuws kan herkennen na het afronden van ons programma.<br />
+			Klik met de linkermuisknop op “Volgende” om door te gaan naar het hoofdmenu.
+			</p>
+		</div>
+		<div id="Nextbutton">
+			<form action="{{ url_for('mainMenu') }}" id="myForm">
+				<button type="submit" form="myForm">
+					<p>Volgende</p>
+					<img src="{{ url_for('static', filename='images/rightarrow.png') }}" alt="Next Button">
+				</button>
+			</form>
+		</div>
+	</body>
+</html>

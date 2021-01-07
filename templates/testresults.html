@@ -8,9 +8,12 @@
 	<body>
 		<div id="results">
 			<p> Goede antwoorden: {{ right }}</p>
-			<br>
 			<p> Foute antwoorden: {{ wrong }}</p>
+			<!--
 			<br>
+			<p> Goed beantwoorde vragen: {{ righttext }}</p>
+			<p> Fout beantwoorde vragen: {{ wrongtext }}</p>
+			-->
 		</div>
 		<div id="Nextbutton">
 			<form action="{{ url_for('mainMenu') }}" id="MainLink">
@@ -21,7 +24,7 @@
 			</form>
 		</div>
 		<div id="Previousbutton">
-			<form action="{{ url_for('test') }}" id="ReviewLink">
+			<form action="{{ url_for('test', showAnswers=1, testID=ID, rightAnswers=right, wrongAnswers=wrong) }}" id="ReviewLink" method="post">
 				<button type="submit" form="ReviewLink">
 					<p>Bekijk tests</p>
 					<img src="{{ url_for('static', filename='images/leftarrow.png') }}" alt="Next Button">

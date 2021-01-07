@@ -5,23 +5,81 @@
 		var fileLocations = [];
 		var testValues = [];
 		var testAnswers = [];
+		var popupList = [];
+		//var correctAnswered = "";
+		//var wrongAnswered = "";
 		var Correct = 0;
 		var Wrong = 0;
 		var testProgress = 0;
+		var scrollthroughProgress = 0;
+		var popupProgress = 0;
 		var testLength = {{testSize}};
+		function loadPopups() {
+			{% for popupList in range(test.imageParameters|length) %}
+				var imagePopups = [];
+				{% for popup in test.imageParameters[popupList].parametersList %}
+					var startwidth = {{popup.startWidth}};
+					var startheight = {{popup.startHeight}};
+					var width = {{popup.width}};
+					var height = {{popup.height}};
+					var message = "{{popup.message}}";
+					var valuesList = [startwidth, startheight, width, height, message];
+					imagePopups.push(valuesList);
+				{% endfor %}
+				popupList.push(imagePopups);
+			{% endfor %}
+			returnPopups();
+		}
+		function returnPopups () {
+			var myDiv = document.getElementById("popups");
+			myDiv.innerHTML = '';
+			var i;
+			for (i=0; i < popupList[popupProgress].length; i++) {
+				var popup = '<div class="popup" style="left:' + popupList[popupProgress][i][0] + '%; ';
+				popup += 'top:' + popupList[popupProgress][i][1] + '%; ';
+				popup += 'width:' + popupList[popupProgress][i][2] + '%; ';
+				popup += 'height:' + popupList[popupProgress][i][3] + '%;"';
+				popup += 'onclick="myFunction(' + i + ')">';
+				popup += '<span class="popuptext" id="myPopup' + i + '">' + popupList[popupProgress][i][4] +  '</span>';
+				popup += '</div>';
+				myDiv.innerHTML += popup;
+			}
+		}
+		function progressPopups () {
+			popupProgress += 1;
+			returnPopups();
+		}
 		function returnRight() {
 			return Correct;
 		}
 		function returnWrong() {
 			return Wrong;
 		}
+		/*function returnRightText() {
+			return correctAnswered;
+		}
+		function returnWrongText() {
+			return wrongAnswered;
+		}*/
 		function calculateScore () {
 			for (var i = 0; i < testValues.length; i++) {
 				if (testValues[i] == testAnswers[i]) {
 					Correct += 1;
+					/*if (correctAnswered == "") {
+						correctAnswered += (i+1).toString();
+					}
+					else {
+						correctAnswered += "," + (i+1).toString();
+					}*/
 				}
 				else {
 					Wrong += 1;
+					/*if (wrongAnswered == "") {
+						wrongAnswered += (i+1).toString();
+					}
+					else {
+						wrongAnswered += "," + (i+1).toString();
+					}*/
 				}
 			}
 		}
@@ -32,6 +90,9 @@
 			{% for i in test.fakeValues %}
 				testValues.push("{{i}}");
 			{% endfor %}
+			{% if viewType|int == 1 %}
+				loadPopups();
+			{% endif %}
 		}
 		function answer(myAnswer) {
 			if (testProgress == testLength) {
@@ -41,6 +102,11 @@
 			}
 			if (testProgress != testLength) {
 				testProgress += 1;
+				if (testProgress != testLength) {
+					var paragraph = document.getElementById("progressParagraph");
+					var newProgressText = "Afbeelding " + (testProgress + 1).toString();
+					paragraph.innerHTML = newProgressText;
+				}
 				testAnswers.push(Number(myAnswer));
 				if (testProgress == testLength) {
 					nextButton();
@@ -51,6 +117,23 @@
 				}
 			}
 		}
+		function progress () {
+			if (testProgress != testLength) {
+				testProgress += 1;
+				if (testProgress != testLength) {
+					document.getElementById("mainImage").src = fileLocations[testProgress];
+					progressPopups();
+				}
+			}
+			if (testProgress == testLength) {
+				var myUrl = "{{ url_for('testresults', rightAnswers=right, wrongAnswers=wrong, testType=myTestType, testID=ID ) }}";
+				var newUrl = myUrl.replace("amp;", "");
+				var newUrl2 = newUrl.replace("amp;", "");
+				var newUrl3 = newUrl2.replace("amp;", "");
+				document.getElementById("myForm").action=newUrl3;
+				$('#formButton').attr('form', 'myForm');
+			}
+		}
 		function nextButton() {
 			document.getElementById("buttonText2").innerHTML = "Volgende";
 			document.getElementById("NextImage").src="{{ url_for('static', filename='images/rightarrow.png') }}";
@@ -59,12 +142,29 @@
 			document.getElementById("Previousbutton").innerHTML = "";
 		}
 		function setupRequest() {
-			var myUrl = "{{ url_for('testresults', rightAnswers="rightNumber", wrongAnswers="wrongNumber") }}";
+			//var myUrl = "{{ url_for('testresults', rightAnswers="rightNumber", wrongAnswers="wrongNumber", rightAnswersText="rightText", wrongAnswersText="wrongText", testType=myTestType, testID=ID ) }}";
+			/*var newUrl1 = myUrl.replace("rightNumber", returnRight());
+			var newUrl2 = newUrl1.replace("wrongNumber", returnWrong());
+			var newUrl3 = newUrl2.replace("rightText", returnRightText());
+			var newUrl4 = newUrl3.replace("wrongText", returnWrongText());
+			var newUrl5 = newUrl4.replace("amp;", "");
+			var newUrl6 = newUrl5.replace("amp;", "");
+			var newUrl7 = newUrl6.replace("amp;", "");
+			var newUrl8 = newUrl7.replace("amp;", "");
+			var newUrl9 = newUrl8.replace("amp;", "");
+			document.getElementById("myForm").action=newUrl9;*/
+			var myUrl = "{{ url_for('testresults', rightAnswers="rightNumber", wrongAnswers="wrongNumber", testType=myTestType, testID=ID ) }}";
 			var newUrl1 = myUrl.replace("rightNumber", returnRight());
 			var newUrl2 = newUrl1.replace("wrongNumber", returnWrong());
 			var newUrl3 = newUrl2.replace("amp;", "");
-			console.log(newUrl3);
-			document.getElementById("myForm").action=newUrl3;
+			var newUrl4 = newUrl3.replace("amp;", "");
+			var newUrl5 = newUrl4.replace("amp;", "");
+			document.getElementById("myForm").action=newUrl5;
+		}
+		function myFunction(popupID) {
+			let string = "myPopup" +  popupID
+			var popup = document.getElementById(string);
+			popup.classList.toggle("show");
 		}
 		</script>
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/test.css') }}">
@@ -72,22 +172,38 @@
 		<title>Test</title>
 	</head>
 	<body onload="loadTest()">
+		<p id="progressParagraph"> Afbeelding 1 </p>
 		<div id="image">
 			<img src="{{ url_for('static', filename=test.urlForFileLocations[0]) }}" alt="News article" id="mainImage">
+			{% if viewType|int == 1 %}
+			<div id="popups">
+			</div>
+			{% endif %}
 		</div>
 		<div id="Previousbutton">
-			<button type="submit" onclick="answer(0)">
-				<p id="buttonText1">Nep</p>
-				<img src="{{ url_for('static', filename='images/wrongmark.png') }}" alt="Previous Button">
-			</button>
+			{% if viewType|int == 0 %}
+				<button type="submit" onclick="answer(0)">
+					<p id="buttonText1">Nep</p>
+					<img src="{{ url_for('static', filename='images/wrongmark.png') }}" alt="Previous Button">
+				</button>
+			{% endif %}
 		</div>
 		<div id="Nextbutton">
-			<form action="{{ url_for('testresults', rightAnswers='rightNumber', wrongAnswers='wrongNumber') }}" id="myForm" method='post'>
-				<button type="submit" onclick="answer(1)" form="None" id="formButton">
-					<p id="buttonText2">Echt</p>
-					<img src="{{ url_for('static', filename='images/checkmark.png') }}" alt="Next Button" id="NextImage">
-				</button>
-			</form>
+			{% if viewType|int == 0 %}
+				<form action="{{ url_for('testresults', rightAnswers='rightNumber', wrongAnswers='wrongNumber') }}" id="myForm" method='post'>
+					<button type="submit" onclick="answer(1)" form="None" id="formButton">
+						<p id="buttonText2">Echt</p>
+						<img src="{{ url_for('static', filename='images/checkmark.png') }}" alt="Next Button" id="NextImage">
+					</button>
+				</form>
+			{% elif viewType|int == 1 %}
+				<form action="{{ url_for('testresults', rightAnswers='rightNumber', wrongAnswers='wrongNumber') }}" id="myForm" method='post'>
+					<button type="submit" onclick="progress()" form="None" id="formButton">
+						<p id="buttonText2">Volgende</p>
+						<img src="{{ url_for('static', filename='images/rightarrow.png') }}" alt="Next Button" id="NextImage">
+					</button>
+				</form>
+			{% endif %}
 		</div>
 	</body>
 </html>

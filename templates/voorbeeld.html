@@ -16,16 +16,18 @@
 	</head>
 	<body>
 		<div id="image">
-			<img src="{{ url_for('static', filename='images/exampleArticle.jpg') }}" alt="News article">
-			{% for popUp in image.parametersList %}
-				<div class="popup" style="left:{{popUp.startWidth}}%; top:{{popUp.startHeight}}%; width:{{popUp.width}}%; height:{{popUp.height}}%;" onclick="myFunction({{loop.index|string}})">
-					{% set popupID = "myPopup" + loop.index|string %}
-					<span class="popuptext" id="{{ popupID }}">{{ popUp.message }}</span>
-				</div>
-			{% endfor %}
+			<img src="{{ url_for('static', filename=image.imageLocation) }}" alt="News article">
+			<div id="popups">
+				{% for popUp in image.parametersList %}
+					<div class="popup" style="left:{{popUp.startWidth}}%; top:{{popUp.startHeight}}%; width:{{popUp.width}}%; height:{{popUp.height}}%;" onclick="myFunction({{loop.index|string}})">
+						{% set popupID = "myPopup" + loop.index|string %}
+						<span class="popuptext" id="{{ popupID }}">{{ popUp.message }}</span>
+					</div>
+				{% endfor %}
+			</div>
 		</div>
 		<div id="Nextbutton">
-			<form action="{{ url_for('test') }}" id="myForm">
+			<form action="{{ url_for('uitleg2', testType=myTestType) }}" id="myForm" method="post">
 				<button type="submit" form="myForm">
 					<p>Volgende</p>
 					<img src="{{ url_for('static', filename='images/rightarrow.png') }}" alt="Next Button">

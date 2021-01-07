@@ -4,7 +4,8 @@ body {
 	margin: 2vh 5vw;
 }
 
-div p {
+p {
+	font-family: "Calibri", sans-serif;
 	font-size: 4vmin;
 }
 
